@@ -21,10 +21,12 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         flowLayout.minimumInteritemSpacing = 5.0
         flowLayout.minimumLineSpacing = 5.0
         flowLayout.itemSize = CGSizeMake(100, 100)
+        flowLayout.headerReferenceSize = CGSizeMake(0, 50)  // 2.ヘッダー追加のため
         
         // コレクションビュー作成
         collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")  // 2.ヘッダー追加のため
         collectionView.dataSource = self
         view.addSubview(collectionView)
         
@@ -60,6 +62,15 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
         cell.backgroundColor = UIColor.redColor()
         return cell
+    }
+    
+    // 2.ヘッダー追加のため
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        let headerReusableView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "header", forIndexPath: indexPath) as UICollectionReusableView
+        headerReusableView.backgroundColor = UIColor.blueColor()
+        
+        return headerReusableView
     }
 }
 

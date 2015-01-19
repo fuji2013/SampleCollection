@@ -405,6 +405,7 @@
 				BD03ACBF1A6A0CC800B9BBDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD03ACC01A6A0CC800B9BBDF /* Build configuration list for PBXNativeTarget "SampleCollectionTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +414,7 @@
 				BD03ACC21A6A0CC800B9BBDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

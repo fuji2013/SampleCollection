@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource {
     var collectionView:UICollectionView!
-    let flowLayout = UICollectionViewFlowLayout()  // 3.画面回転したらCollectionViewのスクロール方向を変更する
+    let flowLayout = UICollectionViewFlowLayout()
+    let imageItems = ["arrow73.png", "clock96.png", "close13.png", "email20.png", "garbage12.png", "handshake1.png"]  // 4.CollectionViewにAutoLayoutを使用したカスタムセルを表示する   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         
         // コレクションビュー作成
         collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: flowLayout)
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.registerClass(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")  // 4.CollectionViewにAutoLayoutを使用したカスタムセルを表示する
         collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -53,23 +54,19 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-    // 3.画面回転したらCollectionViewのスクロール方向を変更する
     // 回転を有効にするか
     override func shouldAutorotate() -> Bool {
         return true
     }
     
-    // 3.画面回転したらCollectionViewのスクロール方向を変更する
     // 回転できる方向
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.All.rawValue) // 値がUIntなので、Int型に変換
     }
     
-    // 3.画面回転したらCollectionViewのスクロール方向を変更する
     // 画面回転する前の処理
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         
-        // 3.画面回転したらCollectionViewのスクロール方向を変更する
         // 縦画面では縦にスクロール、横画面では横にスクロールする。
         // 処理が行われたかわかりにくいので、collectionViewの背景色を画面方向によって変更
         if toInterfaceOrientation == .Portrait
@@ -92,13 +89,14 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return imageItems.count  // 4.CollectionViewにAutoLayoutを使用したカスタムセルを表示する
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
-        cell.backgroundColor = UIColor.redColor()
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as ImageCollectionViewCell
+        cell.setupContents(indexPath.row, filePath:imageItems[indexPath.row])
+        
         return cell
     }
     
